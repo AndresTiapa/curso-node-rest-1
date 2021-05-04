@@ -79,13 +79,16 @@ const patchUsuarios = (req, res = response) => {
 
 const deleteUsuarios = async(req, res = response) => {
     const { id } = req.params;
+    const uid = req.uid;
+    const usuario = req.usuario;
     /*  // se elimina fisicamente
      const usuario = await Usuario.findByIdAndDelete(id); */
-    const usuario = await Usuario.findByIdAndUpdate(id, { estado: false });
-
+    const usuarioDeleted = await Usuario.findByIdAndUpdate(id, { estado: false });
+    //const nombreUA = usuario;
     res.json({
-        usuario,
-        id
+        usuarioDeleted,
+        /*  uid,
+         nombreUA */
     });
 }
 

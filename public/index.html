@@ -5,14 +5,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rest Server</title>
+    <meta name="google-signin-client_id" content="460562457154-sg37r70pa9lo8bocqg85hm9qbo05o5tq.apps.googleusercontent.com">
+    <title> Google Sign-In</title>
 </head>
 
 <body>
-    <h1>Acceso Denegado !</h1>
+    <h1>Autenticar con Google</h1>
+    <br>
+    <hr>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <div><a href="#" onclick="signOut();">Sign out</a></div>
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+            var id_token = googleUser.getAuthResponse().id_token;
+            console.log(id_token);
+        }
+
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function() {
+                console.log('User signed out.');
+            });
+        }
+    </script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 
 </html>
 
 <!-- http://localhost:8082/api/usuarios/?name=Andres&id=202&ok=true&edad=30&estatus=soltero&n=20 -->
 <!-- https://web-rest-server-curso-node.herokuapp.com/api/usuarios?name=Andres&id=202&ok=true&edad=30&estatus=soltero&n=20 -->
+<!-- https://web-rest-server-curso-node.herokuapp.com/api/usuarios?desde=0&limit=9 -->
